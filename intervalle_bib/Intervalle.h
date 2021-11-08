@@ -11,10 +11,10 @@ namespace Interval
 	public:
 		Intervalle(int T);
 		~Intervalle();
-		Intervalle(Intervalle& I1);
-		Intervalle& operator=(Intervalle& I1);
+		Intervalle(const Intervalle& I1);
+		Intervalle& operator=(const Intervalle& I1);
 		
-	      float& operator[](int indice);
+	      float& operator[](int indice) const;
 
 
 

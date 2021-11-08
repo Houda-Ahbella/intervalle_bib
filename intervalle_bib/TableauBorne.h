@@ -11,7 +11,12 @@ namespace Interval {
 
 	public:
 		TableauBorne(float sup, float inf, int taille);
-		float operator[](int indice);
+		TableauBorne(const TableauBorne&);
+		TableauBorne& operator=(const TableauBorne&);
+		void operator()(int index, float T);
+		const float& operator[](int indice) const;
+
+		 
 		
 	};
 

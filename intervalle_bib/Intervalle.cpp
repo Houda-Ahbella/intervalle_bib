@@ -7,53 +7,57 @@ Intervalle::Intervalle(int T)
 {
     assert(T > 0);
     this->taille = T;
-    this->tableau= new float[this->taille];
+    // allocation plus initialisation à 0
+    this->tableau= new float[this->taille]();
   
 }
 
 Intervalle::~Intervalle()
-{  
-    delete[] this->tableau;
-    this->tableau = 0;
+{  if(this->tableau)
+    {
+        delete[] this->tableau;
+        this->tableau = 0;
+    }
+    
 
 }
 
-Intervalle::Intervalle::Intervalle(Intervalle& I1)
+Intervalle::Intervalle::Intervalle(const Intervalle& I1)
 {
    
         this->taille = I1.taille;
 
         this->tableau = new float[this->taille];
-
-        for (int i = 0; i < I1.taille; i++)
-        {
-            this->tableau[i] = I1.tableau[i];
+        if (this->tableau) {
+            for (int i = 0; i < I1.taille; i++)
+            {
+                this->tableau[i] = I1.tableau[i];
+            }
         }
-    
 }
 
-Intervalle& Intervalle::operator=(Intervalle& I1)
+Intervalle& Intervalle::operator=(const Intervalle& I1)
 {
     if (this != &I1)
     {
         this->taille = I1.taille;
         if (this->tableau)
         {
-            delete this->tableau;
+            delete[] this->tableau;
             this->tableau = 0;
         }
         this->tableau = new float[this->taille];
-        for (int i = 0; i < I1.taille; i++)
+        if (this->tableau) 
         {
-            this->tableau[i] = I1.tableau[i];
+            for (int i = 0; i < I1.taille; i++)  this->tableau[i] = I1.tableau[i];
+            
         }
     }
            return *this;
 }
 
-
-
-float& Intervalle::operator[](int indice)
+float& Intervalle::operator[](int indice) const
 {
+    assert(indice >= 0 && indice < this->taille);
     return this->tableau[indice];
 }
